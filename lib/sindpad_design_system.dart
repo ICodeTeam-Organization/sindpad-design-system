@@ -1,5 +1,20 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+/// Sindpad Design System
+///
+/// A shared Flutter design system providing scalable foundations, tokens,
+/// and theme infrastructure across Sindpad organization applications.
+library;
+
+// Foundations - Design Tokens
+export 'foundations/colors/app_colors.dart';
+export 'foundations/colors/semantic_colors.dart';
+export 'foundations/dimensions/app_dimensions.dart';
+export 'foundations/motion/app_motion.dart';
+export 'foundations/radius/app_radius.dart';
+export 'foundations/shadows/app_shadows.dart';
+export 'foundations/spacing/app_spacing.dart';
+export 'foundations/typography/app_typography.dart';
+
+// Theme Architecture & Extensions
+export 'theme/app_theme.dart';
+export 'theme/theme_config.dart';
+export 'theme/theme_extensions.dart';
