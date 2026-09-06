@@ -1,4 +1,5 @@
 import 'package:example/main.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -14,5 +15,15 @@ void main() {
     expect(toggleButton, findsOneWidget);
     await tester.tap(toggleButton);
     await tester.pumpAndSettle();
+
+    // Switch to Login Form tab
+    final loginTab = find.text('Login Form');
+    expect(loginTab, findsOneWidget);
+    await tester.tap(loginTab);
+    await tester.pumpAndSettle();
+
+    // Verify Login Preview Screen loads
+    expect(find.text('تسجيل الدخول'), findsWidgets);
+    expect(find.byKey(const Key('login_submit_button')), findsOneWidget);
   });
 }

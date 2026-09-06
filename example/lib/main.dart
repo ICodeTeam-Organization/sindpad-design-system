@@ -14,6 +14,7 @@ class SindpadPreviewApp extends StatefulWidget {
 
 class _SindpadPreviewAppState extends State<SindpadPreviewApp> {
   ThemeMode _themeMode = ThemeMode.light;
+  int _currentTab = 0;
 
   void _toggleTheme() {
     setState(() {
@@ -30,9 +31,40 @@ class _SindpadPreviewAppState extends State<SindpadPreviewApp> {
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: _themeMode,
-      home: FoundationPreviewScreen(
-        onToggleTheme: _toggleTheme,
-        isDarkMode: _themeMode == ThemeMode.dark,
+      home: Scaffold(
+        body: IndexedStack(
+          index: _currentTab,
+          children: [
+            FoundationPreviewScreen(
+              onToggleTheme: _toggleTheme,
+              isDarkMode: _themeMode == ThemeMode.dark,
+            ),
+            LoginPreviewScreen(
+              onToggleTheme: _toggleTheme,
+              isDarkMode: _themeMode == ThemeMode.dark,
+            ),
+          ],
+        ),
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: _currentTab,
+          onDestinationSelected: (index) {
+            setState(() {
+              _currentTab = index;
+            });
+          },
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.palette_outlined),
+              selectedIcon: Icon(Icons.palette),
+              label: 'Foundations',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.login_outlined),
+              selectedIcon: Icon(Icons.login),
+              label: 'Login Form',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -546,6 +578,266 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+enum _LoginDemoState { normal, loading, error }
+
+class LoginPreviewScreen extends StatefulWidget {
+  final VoidCallback onToggleTheme;
+  final bool isDarkMode;
+
+  const LoginPreviewScreen({
+    super.key,
+    required this.onToggleTheme,
+    required this.isDarkMode,
+  });
+
+  @override
+  State<LoginPreviewScreen> createState() => _LoginPreviewScreenState();
+}
+
+class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
+  bool _isArabic = true;
+  _LoginDemoState _demoState = _LoginDemoState.normal;
+  LoginCredentialType _credentialType = LoginCredentialType.phoneOrEmail;
+  bool _showSocial = true;
+  bool _showForgot = true;
+  bool _showSignUp = true;
+
+  void _showNotification(String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.sindpadColors;
+    final typography = context.sindpadTypography;
+    final raw = context.sindpadRawColors;
+
+    final baseConfig = _isArabic
+        ? const AppLoginConfig.arabic()
+        : const AppLoginConfig.english();
+
+    final config = baseConfig.copyWith(
+      credentialType: _credentialType,
+      showSocialLogin: _showSocial,
+      showForgotPassword: _showForgot,
+      showSignUp: _showSignUp,
+      logo: Container(
+        color: raw.primary,
+        child: const Icon(
+          Icons.storefront_rounded,
+          color: Colors.white,
+          size: 36,
+        ),
+      ),
+      footer: Padding(
+        padding: const EdgeInsets.only(top: AppSpacing.md),
+        child: Text(
+          _isArabic
+              ? 'الإصدار v1.0.0 • مجموعة سندباد'
+              : 'Version v1.0.0 • Sindpad Organization',
+          style: typography.caption.copyWith(color: colors.textSecondary),
+        ),
+      ),
+    );
+
+    final errorMessage = _demoState == _LoginDemoState.error
+        ? (_isArabic
+            ? 'اسم المستخدم أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.'
+            : 'Invalid credentials. Please verify your details and try again.')
+        : null;
+
+    return Directionality(
+      textDirection: _isArabic ? TextDirection.rtl : TextDirection.ltr,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            _isArabic ? 'معاينة شاشة الدخول' : 'Login Form Preview',
+            style: typography.titleMedium.copyWith(
+              fontWeight: FontWeight.bold,
+              color: colors.textPrimary,
+            ),
+          ),
+          actions: [
+            TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  _isArabic = !_isArabic;
+                });
+              },
+              icon: const Icon(Icons.language, size: 18),
+              label: Text(_isArabic ? 'English' : 'عربي'),
+            ),
+            IconButton(
+              icon: Icon(
+                widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+              ),
+              tooltip: 'Toggle Theme',
+              onPressed: widget.onToggleTheme,
+            ),
+            const SizedBox(width: AppSpacing.xs),
+          ],
+        ),
+        body: Column(
+          children: [
+            _buildControlBar(context),
+            Expanded(
+              child: AppLoginForm(
+                config: config,
+                isLoading: _demoState == _LoginDemoState.loading,
+                errorMessage: errorMessage,
+                onLogin: (credentials) {
+                  _showNotification(
+                    _isArabic
+                        ? 'تم تسجيل الدخول: ${credentials.identifier}'
+                        : 'Login credentials submitted: ${credentials.identifier}',
+                  );
+                },
+                onForgotPassword: () {
+                  _showNotification(
+                    _isArabic
+                        ? 'انتقال إلى استعادة كلمة المرور (/forgot-password)'
+                        : 'Navigating to: /forgot-password',
+                  );
+                },
+                onSignUp: () {
+                  _showNotification(
+                    _isArabic
+                        ? 'انتقال إلى إنشاء حساب جديد (/signup)'
+                        : 'Navigating to: /signup',
+                  );
+                },
+                onGoogleLogin: () {
+                  _showNotification('Google Sign-In Triggered');
+                },
+                onFacebookLogin: () {
+                  _showNotification('Facebook Sign-In Triggered');
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildControlBar(BuildContext context) {
+    final colors = context.sindpadColors;
+    final typography = context.sindpadTypography;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.sm,
+      ),
+      decoration: BoxDecoration(
+        color: colors.surfaceSubtle,
+        border: Border(
+          bottom: BorderSide(color: colors.borderSubtle),
+        ),
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            Text(
+              _isArabic ? 'الحالة:' : 'State:',
+              style: typography.labelSmall.copyWith(color: colors.textSecondary),
+            ),
+            const SizedBox(width: AppSpacing.xs),
+            SegmentedButton<_LoginDemoState>(
+              segments: [
+                ButtonSegment(
+                  value: _LoginDemoState.normal,
+                  label: Text(_isArabic ? 'عادية' : 'Normal'),
+                ),
+                ButtonSegment(
+                  value: _LoginDemoState.loading,
+                  label: Text(_isArabic ? 'تحميل' : 'Loading'),
+                ),
+                ButtonSegment(
+                  value: _LoginDemoState.error,
+                  label: Text(_isArabic ? 'خطأ' : 'Error'),
+                ),
+              ],
+              selected: {_demoState},
+              onSelectionChanged: (selected) {
+                setState(() {
+                  _demoState = selected.first;
+                });
+              },
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Text(
+              _isArabic ? 'نوع المعرف:' : 'Credential:',
+              style: typography.labelSmall.copyWith(color: colors.textSecondary),
+            ),
+            const SizedBox(width: AppSpacing.xs),
+            DropdownButton<LoginCredentialType>(
+              value: _credentialType,
+              underline: const SizedBox(),
+              items: [
+                DropdownMenuItem(
+                  value: LoginCredentialType.phoneOrEmail,
+                  child: Text(
+                    _isArabic ? 'هاتف أو إيميل' : 'Phone or Email',
+                    style: typography.bodySmall,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: LoginCredentialType.email,
+                  child: Text(
+                    _isArabic ? 'إيميل فقط' : 'Email Only',
+                    style: typography.bodySmall,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: LoginCredentialType.phone,
+                  child: Text(
+                    _isArabic ? 'هاتف فقط' : 'Phone Only',
+                    style: typography.bodySmall,
+                  ),
+                ),
+              ],
+              onChanged: (val) {
+                if (val != null) {
+                  setState(() {
+                    _credentialType = val;
+                  });
+                }
+              },
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            FilterChip(
+              label: Text(_isArabic ? 'دخول اجتماعي' : 'Social'),
+              selected: _showSocial,
+              onSelected: (val) => setState(() => _showSocial = val),
+            ),
+            const SizedBox(width: AppSpacing.xs),
+            FilterChip(
+              label: Text(_isArabic ? 'نسيت كلمة المرور' : 'Forgot Password'),
+              selected: _showForgot,
+              onSelected: (val) => setState(() => _showForgot = val),
+            ),
+            const SizedBox(width: AppSpacing.xs),
+            FilterChip(
+              label: Text(_isArabic ? 'إنشاء حساب' : 'Sign Up'),
+              selected: _showSignUp,
+              onSelected: (val) => setState(() => _showSignUp = val),
+            ),
+          ],
+        ),
       ),
     );
   }
