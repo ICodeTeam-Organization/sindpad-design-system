@@ -7,8 +7,8 @@ void main() {
     test('fallback palette has expected default colors', () {
       const colors = AppColors.fallback();
 
-      expect(colors.primary, const Color(0xFF1E3A8A));
-      expect(colors.secondary, const Color(0xFF0D9488));
+      expect(colors.primary, const Color(0xFFFF8527));
+      expect(colors.secondary, const Color(0xFF093456));
       expect(colors.accent, const Color(0xFFF59E0B));
       expect(colors.neutralLightest, const Color(0xFFFFFFFF));
     });

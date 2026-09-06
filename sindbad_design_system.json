@@ -1,0 +1,374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Sindbad Store Design System",
+  "version": "1.0.0",
+  "description": "نظام وهوية التصميم المعتمد لمتجر سندباد (الرئيسية، المتجر، السلة، والمفضلة) للاستخدام في تطبيقات الجوال والويب",
+  "locale": {
+    "direction": "rtl",
+    "language": "ar",
+    "fontFamily": "IBM Plex Sans Arabic, sans-serif"
+  },
+  "layout": {
+    "maxWidth": 1440,
+    "pageBackground": "#F8FAFC",
+    "pagePaddingHorizontal": {
+      "mobile": 12,
+      "tablet": 24,
+      "desktop": 32
+    },
+    "pagePaddingVertical": {
+      "top": 16,
+      "bottom": 48
+    },
+    "grid": {
+      "columns": {
+        "mobile": 2,
+        "tablet": 3,
+        "desktop": 4
+      },
+      "gap": {
+        "mobile": 12,
+        "desktop": 16
+      }
+    }
+  },
+  "colors": {
+    "brand": {
+      "primary": {
+        "hex": "#FF8527",
+        "rgb": "rgb(255, 133, 39)",
+        "hover": "#EA580C",
+        "tint": "#FFF4EC",
+        "description": "اللون البرتقالي الأساسي للمتجر، يستخدم للأزرار الرئيسية، الأسعار، والإشارات التفاعلية"
+      },
+      "secondary": {
+        "hex": "#093456",
+        "rgb": "rgb(9, 52, 86)",
+        "hover": "#06233A",
+        "tint": "#EEF5FA",
+        "description": "اللون الكحلي الداكن، يستخدم للهيدر، العناوين البارزة، والبادجات الثانوية"
+      },
+      "accent": {
+        "hex": "#F59E0B",
+        "rgb": "rgb(245, 158, 11)",
+        "hover": "#D97706",
+        "tint": "#FFFBEB",
+        "description": "اللون الذهبي/العنبري المميز، يستخدم للتقييمات، بادجات العروض الخاصة، والخصومات المميزة"
+      }
+    },
+    "surface": {
+      "page": "#F8FAFC",
+      "card": "#FFFFFF",
+      "muted": "#F1F5F9",
+      "subtle": "#F8FAFC",
+      "border": "#E2E8F0",
+      "divider": "#F1F5F9"
+    },
+    "text": {
+      "primary": "#0F172A",
+      "secondary": "#334155",
+      "muted": "#94A3B8",
+      "brand": "#FF8527",
+      "brandSecondary": "#093456",
+      "inverse": "#FFFFFF",
+      "disabled": "#CBD5E1"
+    },
+    "status": {
+      "success": {
+        "color": "#059669",
+        "bg": "#ECFDF5",
+        "border": "#A7F3D0",
+        "description": "متوفر، هدايا مجانية، عروض ناجحة"
+      },
+      "danger": {
+        "color": "#DC2626",
+        "bg": "#FEF2F2",
+        "border": "#FECACA",
+        "description": "غير متوفر، حذف من السلة، أخطاء"
+      },
+      "warning": {
+        "color": "#F59E0B",
+        "bg": "#FFFBEB",
+        "border": "#FDE68A",
+        "description": "توصيل مستعجل، تقييمات النجوم، تنبيهات"
+      },
+      "info": {
+        "color": "#0284C7",
+        "bg": "#F0F9FF",
+        "border": "#BAE6FD",
+        "description": "وصل حديثاً، معلومات الشحن والجملة"
+      }
+    },
+    "badges": {
+      "discount": {
+        "background": "#FFF4EC",
+        "color": "#FF8527",
+        "description": "نسبة الخصم مثل: خصم 20%"
+      },
+      "deal": {
+        "background": "#EFF6FF",
+        "color": "#2563EB",
+        "description": "عرض خاص أو عروض ترويجية"
+      },
+      "popular": {
+        "background": "#FEF3C7",
+        "color": "#D97706",
+        "description": "الأكثر طلباً"
+      },
+      "inCart": {
+        "background": "#F1F5F9",
+        "color": "#093456",
+        "description": "مضاف في السلة حالياً"
+      },
+      "freeGift": {
+        "background": "#ECFDF5",
+        "color": "#059669",
+        "description": "هدية مجانية عند الشراء"
+      }
+    }
+  },
+  "borderRadius": {
+    "scale": {
+      "none": 0,
+      "xs": 4,
+      "sm": 6,
+      "md": 8,
+      "lg": 10,
+      "xl": 12,
+      "2xl": 16,
+      "3xl": 24,
+      "full": 9999
+    },
+    "components": {
+      "card": 16,
+      "cardHorizontal": 16,
+      "imageThumb": 12,
+      "button": 12,
+      "input": 12,
+      "select": 12,
+      "modal": 16,
+      "tabContainer": 12,
+      "tabItem": 8,
+      "badge": 8,
+      "quantityControl": 12,
+      "quantityButton": 8,
+      "banner": 24
+    }
+  },
+  "shadows": {
+    "none": "none",
+    "xs": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+    "sm": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+    "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)",
+    "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
+    "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+    "usage": {
+      "cardDefault": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      "cardHover": "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+      "dropdownAndModal": "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+      "activePill": "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
+    }
+  },
+  "typography": {
+    "fontFamily": "IBM Plex Sans Arabic, sans-serif",
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "extrabold": 800,
+      "black": 900
+    },
+    "scales": {
+      "h1": {
+        "fontSize": 20,
+        "lineHeight": 28,
+        "fontWeight": 800,
+        "color": "#0F172A"
+      },
+      "h2": {
+        "fontSize": 18,
+        "lineHeight": 26,
+        "fontWeight": 700,
+        "color": "#0F172A"
+      },
+      "h3": {
+        "fontSize": 16,
+        "lineHeight": 24,
+        "fontWeight": 700,
+        "color": "#0F172A"
+      },
+      "cardTitle": {
+        "fontSize": 14,
+        "lineHeight": 20,
+        "fontWeight": 700,
+        "color": "#0F172A"
+      },
+      "body": {
+        "fontSize": 14,
+        "lineHeight": 20,
+        "fontWeight": 500,
+        "color": "#334155"
+      },
+      "bodySmall": {
+        "fontSize": 12,
+        "lineHeight": 18,
+        "fontWeight": 500,
+        "color": "#94A3B8"
+      },
+      "caption": {
+        "fontSize": 11,
+        "lineHeight": 16,
+        "fontWeight": 600,
+        "color": "#94A3B8"
+      },
+      "price": {
+        "fontSize": 16,
+        "lineHeight": 22,
+        "fontWeight": 900,
+        "color": "#FF8527"
+      },
+      "priceOld": {
+        "fontSize": 12,
+        "lineHeight": 16,
+        "fontWeight": 400,
+        "color": "#94A3B8",
+        "textDecoration": "line-through"
+      },
+      "badge": {
+        "fontSize": 11,
+        "lineHeight": 14,
+        "fontWeight": 700
+      }
+    }
+  },
+  "components": {
+    "ProductCard": {
+      "background": "#FFFFFF",
+      "borderRadius": 16,
+      "border": "none",
+      "shadowDefault": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      "shadowHover": "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+      "padding": 12,
+      "image": {
+        "background": "#F8FAFC",
+        "borderRadius": 12,
+        "border": "1px solid rgba(241, 245, 249, 0.8)",
+        "aspectRatio": "1:1",
+        "hoverScale": 1.05
+      },
+      "variants": {
+        "vertical": {
+          "direction": "column",
+          "contentAlignment": "right"
+        },
+        "horizontal": {
+          "direction": "row",
+          "imageSize": 110,
+          "contentAlignment": "right"
+        }
+      }
+    },
+    "CartItem": {
+      "background": "#FFFFFF",
+      "borderRadius": 16,
+      "border": "none",
+      "shadow": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      "padding": 16,
+      "imageThumb": {
+        "size": 80,
+        "borderRadius": 12,
+        "background": "#F8FAFC"
+      },
+      "quantityControl": {
+        "background": "#F1F5F9",
+        "borderRadius": 12,
+        "padding": 4,
+        "gap": 4,
+        "button": {
+          "size": 28,
+          "background": "#FFFFFF",
+          "color": "#334155",
+          "borderRadius": 8,
+          "shadow": "0 1px 2px 0 rgba(0, 0, 0, 0.03)"
+        }
+      }
+    },
+    "Tabs": {
+      "container": {
+        "background": "#F1F5F9",
+        "borderRadius": 12,
+        "padding": 6,
+        "gap": 4
+      },
+      "trigger": {
+        "borderRadius": 8,
+        "paddingHorizontal": 16,
+        "paddingVertical": 8,
+        "fontSize": 13,
+        "fontWeight": 700,
+        "inactive": {
+          "background": "transparent",
+          "color": "#475569"
+        },
+        "active": {
+          "background": "#FFFFFF",
+          "color": "#FF8527",
+          "shadow": "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
+        }
+      }
+    },
+    "Button": {
+      "primary": {
+        "background": "#FF8527",
+        "hoverBackground": "#EA580C",
+        "textColor": "#FFFFFF",
+        "borderRadius": 12,
+        "fontWeight": 700,
+        "shadow": "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
+      },
+      "secondary": {
+        "background": "#093456",
+        "hoverBackground": "#06233A",
+        "textColor": "#FFFFFF",
+        "borderRadius": 12,
+        "fontWeight": 700
+      },
+      "ghost": {
+        "background": "#F1F5F9",
+        "hoverBackground": "#E2E8F0",
+        "textColor": "#334155",
+        "borderRadius": 12,
+        "fontWeight": 700
+      },
+      "danger": {
+        "background": "#FEF2F2",
+        "hoverBackground": "#FEE2E2",
+        "textColor": "#DC2626",
+        "borderRadius": 12,
+        "fontWeight": 700
+      }
+    },
+    "InputAndSelect": {
+      "background": "#F8FAFC",
+      "borderRadius": 12,
+      "border": "none",
+      "textColor": "#0F172A",
+      "placeholderColor": "#94A3B8",
+      "fontSize": 13,
+      "focusRingColor": "rgba(255, 133, 39, 0.2)"
+    },
+    "Breadcrumb": {
+      "container": {
+        "background": "#F8FAFC",
+        "paddingVertical": 12
+      },
+      "textInactive": "#94A3B8",
+      "textActive": "#0F172A",
+      "hoverColor": "#FF8527",
+      "separator": "/",
+      "fontSize": 13,
+      "fontWeight": 600
+    }
+  }
+}

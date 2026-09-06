@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../foundations/colors/app_colors.dart';
 import '../../../foundations/colors/semantic_colors.dart';
@@ -129,8 +130,7 @@ class _AppLoginFormState extends State<AppLoginForm> {
       (_internalIdentifierFocusNode ??= FocusNode());
 
   FocusNode get _effectivePasswordFocusNode =>
-      widget.passwordFocusNode ??
-      (_internalPasswordFocusNode ??= FocusNode());
+      widget.passwordFocusNode ?? (_internalPasswordFocusNode ??= FocusNode());
 
   @override
   void initState() {
@@ -169,11 +169,13 @@ class _AppLoginFormState extends State<AppLoginForm> {
 
     // Safe retrieval of design system tokens with robust fallbacks
     final ext = theme.extension<SindpadThemeExtension>();
-    final semantic = ext?.semanticColors ??
+    final semantic =
+        ext?.semanticColors ??
         (isDark
             ? const SemanticColors.darkDefault()
             : const SemanticColors.lightDefault());
-    final raw = ext?.colors ??
+    final raw =
+        ext?.colors ??
         (theme.colorScheme.primary != const Color(0xff6750a4)
             ? AppColors.fallback().copyWith(primary: theme.colorScheme.primary)
             : const AppColors.fallback());
@@ -184,18 +186,16 @@ class _AppLoginFormState extends State<AppLoginForm> {
 
     final config = widget.config;
 
-    final effectivePadding = config.contentPadding ??
-        EdgeInsets.symmetric(
-          horizontal: spacing.sLg,
-          vertical: spacing.sXl,
-        );
+    final effectivePadding =
+        config.contentPadding ??
+        EdgeInsets.symmetric(horizontal: spacing.sLg, vertical: spacing.sXl);
 
     final inputBorderRadius = BorderRadius.circular(
-      config.inputRadius ?? radius.rSm,
+      config.inputRadius ?? radius.rXl,
     );
 
     final buttonBorderRadius = BorderRadius.circular(
-      config.buttonRadius ?? radius.rLg,
+      config.buttonRadius ?? radius.rXl,
     );
 
     return LayoutBuilder(
@@ -205,9 +205,7 @@ class _AppLoginFormState extends State<AppLoginForm> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Center(
             child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: config.maxContentWidth,
-              ),
+              constraints: BoxConstraints(maxWidth: config.maxContentWidth),
               child: SingleChildScrollView(
                 padding: effectivePadding,
                 child: Form(
@@ -355,8 +353,9 @@ class _AppLoginFormState extends State<AppLoginForm> {
                           _buildSocialButton(
                             key: const Key('login_google_button'),
                             label: config.googleButtonLabel ?? 'Google',
-                            icon: config.googleIcon ??
-                                const _GoogleVectorLogo(size: 22),
+                            icon:
+                                config.googleIcon ??
+                                const GoogleMultiColorIcon(size: 20),
                             onTap: (widget.enabled && !widget.isLoading)
                                 ? widget.onGoogleLogin
                                 : null,
@@ -375,8 +374,13 @@ class _AppLoginFormState extends State<AppLoginForm> {
                           _buildSocialButton(
                             key: const Key('login_facebook_button'),
                             label: config.facebookButtonLabel ?? 'Facebook',
-                            icon: config.facebookIcon ??
-                                const _FacebookVectorLogo(size: 22),
+                            icon:
+                                config.facebookIcon ??
+                                const FaIcon(
+                                  FontAwesomeIcons.facebook,
+                                  size: 20,
+                                  color: Color(0xFF1877F2),
+                                ),
                             onTap: (widget.enabled && !widget.isLoading)
                                 ? widget.onFacebookLogin
                                 : null,
@@ -419,10 +423,7 @@ class _AppLoginFormState extends State<AppLoginForm> {
       decoration: BoxDecoration(
         color: semantic.surfaceSubtle,
         borderRadius: BorderRadius.circular(badgeRadius),
-        border: Border.all(
-          color: semantic.borderSubtle,
-          width: 1,
-        ),
+        border: Border.all(color: semantic.borderSubtle, width: 1),
       ),
       clipBehavior: Clip.antiAlias,
       alignment: Alignment.center,
@@ -446,18 +447,12 @@ class _AppLoginFormState extends State<AppLoginForm> {
       decoration: BoxDecoration(
         color: semantic.errorSurface,
         borderRadius: BorderRadius.circular(radius.rSm),
-        border: Border.all(
-          color: semantic.error.withValues(alpha: 0.3),
-        ),
+        border: Border.all(color: semantic.error.withValues(alpha: 0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(
-            Icons.error_outline_rounded,
-            color: semantic.error,
-            size: 20,
-          ),
+          Icon(Icons.error_outline_rounded, color: semantic.error, size: 20),
           SizedBox(width: spacing.sSm),
           Expanded(
             child: Text(
@@ -483,10 +478,12 @@ class _AppLoginFormState extends State<AppLoginForm> {
     required bool isRtl,
   }) {
     final isFieldEnabled = widget.enabled && !widget.isLoading;
-    final effectiveKeyboardType = config.credentialKeyboardType ??
+    final effectiveKeyboardType =
+        config.credentialKeyboardType ??
         _resolveKeyboardType(config.credentialType);
 
-    final effectivePrefix = config.credentialPrefix ??
+    final effectivePrefix =
+        config.credentialPrefix ??
         _defaultCredentialIcon(config.credentialType, semantic.textSecondary);
 
     return TextFormField(
@@ -498,7 +495,8 @@ class _AppLoginFormState extends State<AppLoginForm> {
       textInputAction: TextInputAction.next,
       autofillHints: _resolveAutofillHints(config.credentialType),
       style: typography.bodyLarge.copyWith(color: semantic.textPrimary),
-      validator: widget.identifierValidator ??
+      validator:
+          widget.identifierValidator ??
           (val) => _defaultIdentifierValidator(val, isRtl),
       decoration: InputDecoration(
         labelText: config.getEffectiveCredentialLabel(isRtl: isRtl),
@@ -508,14 +506,13 @@ class _AppLoginFormState extends State<AppLoginForm> {
               ? semantic.textSecondary
               : semantic.textDisabled,
         ),
-        hintStyle: typography.bodyMedium.copyWith(
-          color: semantic.textDisabled,
-        ),
+        hintStyle: typography.bodyMedium.copyWith(color: semantic.textDisabled),
         prefixIcon: effectivePrefix,
         suffixIcon: config.credentialSuffix,
         filled: true,
-        fillColor:
-            isFieldEnabled ? semantic.surfaceSubtle : semantic.disabledSurface,
+        fillColor: isFieldEnabled
+            ? semantic.surfaceSubtle
+            : semantic.disabledSurface,
         contentPadding: EdgeInsets.symmetric(
           horizontal: spacing.sMd,
           vertical: 14.0,
@@ -573,7 +570,8 @@ class _AppLoginFormState extends State<AppLoginForm> {
       autofillHints: const [AutofillHints.password],
       onFieldSubmitted: (_) => _submit(),
       style: typography.bodyLarge.copyWith(color: semantic.textPrimary),
-      validator: widget.passwordValidator ??
+      validator:
+          widget.passwordValidator ??
           (val) => _defaultPasswordValidator(val, isRtl),
       decoration: InputDecoration(
         labelText: config.passwordLabel ?? (isRtl ? 'كلمة المرور' : 'Password'),
@@ -583,9 +581,7 @@ class _AppLoginFormState extends State<AppLoginForm> {
               ? semantic.textSecondary
               : semantic.textDisabled,
         ),
-        hintStyle: typography.bodyMedium.copyWith(
-          color: semantic.textDisabled,
-        ),
+        hintStyle: typography.bodyMedium.copyWith(color: semantic.textDisabled),
         prefixIcon: Icon(
           Icons.lock_outline_rounded,
           color: semantic.textSecondary,
@@ -611,8 +607,9 @@ class _AppLoginFormState extends State<AppLoginForm> {
           ),
         ),
         filled: true,
-        fillColor:
-            isFieldEnabled ? semantic.surfaceSubtle : semantic.disabledSurface,
+        fillColor: isFieldEnabled
+            ? semantic.surfaceSubtle
+            : semantic.disabledSurface,
         contentPadding: EdgeInsets.symmetric(
           horizontal: spacing.sMd,
           vertical: 14.0,
@@ -654,7 +651,8 @@ class _AppLoginFormState extends State<AppLoginForm> {
     required bool isRtl,
   }) {
     final isActionEnabled = widget.enabled && !widget.isLoading;
-    final label = config.forgotPasswordLabel ??
+    final label =
+        config.forgotPasswordLabel ??
         (isRtl ? 'هل نسيت كلمة المرور؟' : 'Forgot password?');
 
     return TextButton(
@@ -685,7 +683,8 @@ class _AppLoginFormState extends State<AppLoginForm> {
     required bool isRtl,
   }) {
     final isActionEnabled = widget.enabled && !widget.isLoading;
-    final label = config.loginButtonLabel ?? (isRtl ? 'تسجيل الدخول' : 'Sign In');
+    final label =
+        config.loginButtonLabel ?? (isRtl ? 'تسجيل الدخول' : 'Sign In');
 
     return SizedBox(
       height: config.buttonHeight,
@@ -698,9 +697,7 @@ class _AppLoginFormState extends State<AppLoginForm> {
           foregroundColor: semantic.textInverse,
           disabledForegroundColor: semantic.textDisabled,
           elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius,
-          ),
+          shape: RoundedRectangleBorder(borderRadius: borderRadius),
         ),
         child: widget.isLoading
             ? SizedBox(
@@ -736,7 +733,8 @@ class _AppLoginFormState extends State<AppLoginForm> {
   }) {
     final isActionEnabled = widget.enabled && !widget.isLoading;
     final prompt =
-        config.signUpPrompt ?? (isRtl ? 'ليس لديك حساب؟' : "Don't have an account?");
+        config.signUpPrompt ??
+        (isRtl ? 'ليس لديك حساب؟' : "Don't have an account?");
     final label = config.signUpLabel ?? (isRtl ? 'إنشاء حساب جديد' : 'Sign up');
 
     return Row(
@@ -744,9 +742,7 @@ class _AppLoginFormState extends State<AppLoginForm> {
       children: [
         Text(
           prompt,
-          style: typography.bodyMedium.copyWith(
-            color: semantic.textSecondary,
-          ),
+          style: typography.bodyMedium.copyWith(color: semantic.textSecondary),
         ),
         SizedBox(width: spacing.sXs),
         GestureDetector(
@@ -777,17 +773,13 @@ class _AppLoginFormState extends State<AppLoginForm> {
     required AppSpacing spacing,
     required bool isRtl,
   }) {
-    final dividerText = config.dividerText ??
+    final dividerText =
+        config.dividerText ??
         (isRtl ? 'أو قم بتسجيل الدخول باستخدام' : 'Or sign in with');
 
     return Row(
       children: [
-        Expanded(
-          child: Divider(
-            color: semantic.divider,
-            thickness: 1,
-          ),
-        ),
+        Expanded(child: Divider(color: semantic.divider, thickness: 1)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: spacing.sMd),
           child: Text(
@@ -798,12 +790,7 @@ class _AppLoginFormState extends State<AppLoginForm> {
             ),
           ),
         ),
-        Expanded(
-          child: Divider(
-            color: semantic.divider,
-            thickness: 1,
-          ),
-        ),
+        Expanded(child: Divider(color: semantic.divider, thickness: 1)),
       ],
     );
   }
@@ -828,13 +815,13 @@ class _AppLoginFormState extends State<AppLoginForm> {
         onPressed: onTap,
         style: OutlinedButton.styleFrom(
           backgroundColor: semantic.surface,
-          disabledBackgroundColor: semantic.disabledSurface.withValues(alpha: 0.5),
+          disabledBackgroundColor: semantic.disabledSurface.withValues(
+            alpha: 0.5,
+          ),
           side: BorderSide(
             color: isActionEnabled ? semantic.border : semantic.borderSubtle,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius,
-          ),
+          shape: RoundedRectangleBorder(borderRadius: borderRadius),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -903,120 +890,53 @@ class _AppLoginFormState extends State<AppLoginForm> {
 
   String? _defaultPasswordValidator(String? value, bool isRtl) {
     if (value == null || value.isEmpty) {
-      return isRtl
-          ? 'كلمة المرور مطلوبة'
-          : 'Password is required';
+      return isRtl ? 'كلمة المرور مطلوبة' : 'Password is required';
     }
     return null;
   }
 }
 
-/// Self-contained, brand-accurate vector Google "G" logo painter.
-class _GoogleVectorLogo extends StatelessWidget {
+/// Renders the Google brand icon using [FontAwesomeIcons.google] with authentic
+/// Google multi-colors (Blue, Green, Yellow, Red) via [ShaderMask] and [SweepGradient].
+class GoogleMultiColorIcon extends StatelessWidget {
   final double size;
 
-  const _GoogleVectorLogo({this.size = 24.0});
+  const GoogleMultiColorIcon({super.key, this.size = 20.0});
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size(size, size),
-      painter: const _GoogleLogoPainter(),
-    );
-  }
-}
-
-class _GoogleLogoPainter extends CustomPainter {
-  const _GoogleLogoPainter();
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final double s = size.width;
-    final double center = s / 2;
-    final double radius = s * 0.45;
-    final double strokeWidth = s * 0.19;
-
-    final rect = Rect.fromCircle(center: Offset(center, center), radius: radius);
-
-    final paintBlue = Paint()
-      ..color = const Color(0xFF4285F4)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.butt;
-
-    final paintGreen = Paint()
-      ..color = const Color(0xFF34A853)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.butt;
-
-    final paintYellow = Paint()
-      ..color = const Color(0xFFFBBC05)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.butt;
-
-    final paintRed = Paint()
-      ..color = const Color(0xFFEA4335)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.butt;
-
-    // Blue arc (top-right and bar)
-    canvas.drawArc(rect, -math.pi / 4, math.pi / 4 + 0.1, false, paintBlue);
-
-    // Green arc (bottom-right to bottom)
-    canvas.drawArc(rect, 0, math.pi / 2, false, paintGreen);
-
-    // Yellow arc (bottom-left)
-    canvas.drawArc(rect, math.pi / 2, math.pi / 2, false, paintYellow);
-
-    // Red arc (top-left)
-    canvas.drawArc(rect, math.pi, math.pi * 3 / 4, false, paintRed);
-
-    // Google horizontal bar
-    final barPaint = Paint()
-      ..color = const Color(0xFF4285F4)
-      ..style = PaintingStyle.fill;
-
-    final barRect = Rect.fromLTRB(
-      center - (strokeWidth * 0.1),
-      center - (strokeWidth / 2),
-      center + radius + (strokeWidth / 2),
-      center + (strokeWidth / 2),
-    );
-    canvas.drawRect(barRect, barPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-/// Self-contained, brand-accurate vector Facebook "f" logo.
-class _FacebookVectorLogo extends StatelessWidget {
-  final double size;
-
-  const _FacebookVectorLogo({this.size = 24.0});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: const BoxDecoration(
-        color: Color(0xFF1877F2),
-        shape: BoxShape.circle,
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        'f',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: size * 0.72,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'sans-serif',
-          height: 1.0,
-        ),
+    return ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (bounds) {
+        return const SweepGradient(
+          startAngle: -math.pi / 4,
+          endAngle: math.pi * 7 / 4,
+          colors: [
+            Color(0xFF4285F4), // Blue
+            Color(0xFF4285F4),
+            Color(0xFF34A853), // Green
+            Color(0xFF34A853),
+            Color(0xFFFBBC05), // Yellow
+            Color(0xFFFBBC05),
+            Color(0xFFEA4335), // Red
+            Color(0xFFEA4335),
+          ],
+          stops: [
+            0.0,
+            0.25,
+            0.25,
+            0.50,
+            0.50,
+            0.75,
+            0.75,
+            1.0,
+          ],
+        ).createShader(bounds);
+      },
+      child: FaIcon(
+        FontAwesomeIcons.google,
+        size: size,
+        color: Colors.white,
       ),
     );
   }

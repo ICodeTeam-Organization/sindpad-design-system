@@ -23,3 +23,6 @@ export 'theme/theme_extensions.dart';
 export 'components/auth/login/app_login_config.dart';
 export 'components/auth/login/app_login_form.dart';
 export 'components/auth/login/app_login_models.dart';
+
+// Third-party Icons
+export 'package:font_awesome_flutter/font_awesome_flutter.dart';

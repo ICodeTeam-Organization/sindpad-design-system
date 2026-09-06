@@ -57,17 +57,17 @@ class AppColors {
   /// A neutral, brand-agnostic default palette suitable for initialization
   /// or fallback before an app provides its customized branding.
   const AppColors.fallback()
-      : primary = const Color(0xFF1E3A8A),
-        primaryContainer = const Color(0xFFDBEAFE),
-        secondary = const Color(0xFF0D9488),
-        secondaryContainer = const Color(0xFFCCFBF1),
+      : primary = const Color(0xFFFF8527),
+        primaryContainer = const Color(0xFFFFF4EC),
+        secondary = const Color(0xFF093456),
+        secondaryContainer = const Color(0xFFEEF5FA),
         accent = const Color(0xFFF59E0B),
-        neutral = const Color(0xFF6B7280),
+        neutral = const Color(0xFF94A3B8),
         neutralLightest = const Color(0xFFFFFFFF),
-        neutralLighter = const Color(0xFFF3F4F6),
-        neutralMid = const Color(0xFF9CA3AF),
-        neutralDark = const Color(0xFF374151),
-        neutralDarkest = const Color(0xFF111827);
+        neutralLighter = const Color(0xFFF1F5F9),
+        neutralMid = const Color(0xFFCBD5E1),
+        neutralDark = const Color(0xFF334155),
+        neutralDarkest = const Color(0xFF0F172A);
 
   /// Creates a copy of this [AppColors] with the given fields replaced.
   AppColors copyWith({

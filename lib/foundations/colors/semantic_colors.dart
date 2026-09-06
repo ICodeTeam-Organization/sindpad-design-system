@@ -92,26 +92,26 @@ class SemanticColors {
 
   /// Default semantic color tokens for light mode.
   const SemanticColors.lightDefault()
-      : background = const Color(0xFFF9FAFB),
+      : background = const Color(0xFFF8FAFC),
         surface = const Color(0xFFFFFFFF),
-        surfaceSubtle = const Color(0xFFF3F4F6),
-        textPrimary = const Color(0xFF111827),
-        textSecondary = const Color(0xFF4B5563),
-        textDisabled = const Color(0xFF9CA3AF),
+        surfaceSubtle = const Color(0xFFF8FAFC),
+        textPrimary = const Color(0xFF0F172A),
+        textSecondary = const Color(0xFF334155),
+        textDisabled = const Color(0xFFCBD5E1),
         textInverse = const Color(0xFFFFFFFF),
-        border = const Color(0xFFE5E7EB),
-        borderSubtle = const Color(0xFFF3F4F6),
-        divider = const Color(0xFFE5E7EB),
+        border = const Color(0xFFE2E8F0),
+        borderSubtle = const Color(0xFFF1F5F9),
+        divider = const Color(0xFFF1F5F9),
         error = const Color(0xFFDC2626),
         errorSurface = const Color(0xFFFEF2F2),
-        warning = const Color(0xFFD97706),
+        warning = const Color(0xFFF59E0B),
         warningSurface = const Color(0xFFFFFBEB),
-        success = const Color(0xFF16A34A),
-        successSurface = const Color(0xFFF0FDF4),
-        info = const Color(0xFF2563EB),
-        infoSurface = const Color(0xFFEFF6FF),
-        disabled = const Color(0xFF9CA3AF),
-        disabledSurface = const Color(0xFFE5E7EB);
+        success = const Color(0xFF059669),
+        successSurface = const Color(0xFFECFDF5),
+        info = const Color(0xFF0284C7),
+        infoSurface = const Color(0xFFF0F9FF),
+        disabled = const Color(0xFFCBD5E1),
+        disabledSurface = const Color(0xFFF1F5F9);
 
   /// Default semantic color tokens for dark mode.
   const SemanticColors.darkDefault()
