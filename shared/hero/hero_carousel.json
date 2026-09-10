@@ -1,0 +1,118 @@
+{
+  "name": "Hero Carousel",
+  "component": "HeroCarousel",
+  "version": "1.0.0",
+  "description": "سلايدر وكارسول الهيرو الرئيسي لتطبيق ومتجر سندباد",
+  "config": {
+    "autoPlay": true,
+    "autoPlayIntervalMs": 5000,
+    "transitionDurationMs": 700,
+    "loop": true,
+    "borderRadius": 24,
+    "aspectRatio": {
+      "mobile": "16:10",
+      "desktop": "21:9"
+    },
+    "showNavigationArrows": true,
+    "showPaginationDots": true,
+    "pauseOnHover": true,
+    "direction": "rtl"
+  },
+  "slides": [
+    {
+      "id": 1,
+      "title": "تجربة تسوق فريدة وموثوقة",
+      "subtitle": "نوفر لك أفضل المنتجات من أشهر الماركات مع شحن سريع وآمن إلى باب بيتك",
+      "badge": "تسوق مباشر",
+      "badgeColor": {
+        "bg": "#FF8527",
+        "text": "#FFFFFF",
+        "tailwindClass": "bg-primary text-white"
+      },
+      "cta": {
+        "text": "تسوق الآن",
+        "link": "/shop",
+        "type": "internal"
+      },
+      "image": "hero4.jpeg",
+      "imagePath": "./hero4.jpeg",
+      "alt": "تجربة تسوق فريدة وموثوقة"
+    },
+    {
+      "id": 2,
+      "title": "اطلب ما تريد من أي مكان",
+      "subtitle": "خدمة الطلب الخاص من المتاجر السعودية والعالمية نوصلها لباب بيتك بكل سهولة",
+      "badge": "خدمة الطلب الخاص",
+      "badgeColor": {
+        "bg": "#059669",
+        "text": "#FFFFFF",
+        "tailwindClass": "bg-emerald-600 text-white"
+      },
+      "cta": {
+        "text": "طلب خاص",
+        "link": "/special-order?tab=1",
+        "type": "internal"
+      },
+      "image": "hero1.jpeg",
+      "imagePath": "./hero1.jpeg",
+      "alt": "خدمة الطلب الخاص"
+    },
+    {
+      "id": 3,
+      "title": "خصومات استثنائية وعروض يومية",
+      "subtitle": "وفر أكثر مع أقوى التخفيضات والخصومات على أحدث المنتجات والإلكترونيات",
+      "badge": "عروض وتخفيضات",
+      "badgeColor": {
+        "bg": "#E11D48",
+        "text": "#FFFFFF",
+        "tailwindClass": "bg-rose-600 text-white"
+      },
+      "cta": {
+        "text": "استكشف العروض",
+        "link": "/shop?hasOffer=t",
+        "type": "internal"
+      },
+      "image": "hero5.jpeg",
+      "imagePath": "./hero5.jpeg",
+      "alt": "عروض وتخفيضات"
+    },
+    {
+      "id": 4,
+      "title": "دليلك لأشهر المتاجر العالمية",
+      "subtitle": "تصفح مئات المتاجر الإلكترونية الموثوقة مع كوبونات خصم حصرية وشحن مباشر",
+      "badge": "المتاجر الإلكترونية",
+      "badgeColor": {
+        "bg": "#2563EB",
+        "text": "#FFFFFF",
+        "tailwindClass": "bg-blue-600 text-white"
+      },
+      "cta": {
+        "text": "عرض المتاجر",
+        "link": "/e-commerce",
+        "type": "internal"
+      },
+      "image": "hero2.jpeg",
+      "imagePath": "./hero2.jpeg",
+      "alt": "المتاجر الإلكترونية"
+    },
+    {
+      "id": 5,
+      "title": "مراكز ومحلات تجارية متكاملة",
+      "subtitle": "استكشف المنتجات والمحلات الرائدة بكل سهولة وأمان مع أفضل خيارات التوصيل",
+      "badge": "المحلات والمراكز",
+      "badgeColor": {
+        "bg": "#D97706",
+        "text": "#FFFFFF",
+        "tailwindClass": "bg-amber-600 text-white"
+      },
+      "cta": {
+        "text": "تصفح المحلات",
+        "link": "/stores",
+        "type": "internal"
+      },
+      "image": "hero3.jpeg",
+      "imagePath": "./hero3.jpeg",
+      "alt": "المحلات والمراكز"
+    }
+  ]
+}
