@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.2
+
+* Added reusable `SignInSnackBar` feedback component with local and global display helpers.
+* Kept authentication navigation app-owned through the `onLoginPressed` callback.
+* Added widget tests for SnackBar rendering and login action callbacks.
+
 ## 2.1.0
 
 * Added reusable, production-ready `AppLoginForm` component:
