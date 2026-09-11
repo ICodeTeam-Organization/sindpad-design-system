@@ -5,6 +5,9 @@
 * Added a dark-specific default raw color palette with dark-friendly brand containers and neutrals.
 * Added dark-aware Material component themes for inputs, buttons, navigation, dialogs, and bottom sheets.
 * Documented package-level light and dark theme configuration for consuming applications.
+* Added the reusable `AppSnackBar` feedback component with success, error, warning, info, loading, and default states.
+* Added shared loading components: `AppLoader`, `CircularLoader`, `LinearLoader`, `Skeleton`, `ProductSkeleton`, `ListSkeleton`, `CardSkeleton`, and `PageLoader`.
+* Added reusable button components with primary, secondary, outlined, tonal, text, danger, loading, size, and icon-button support.
 
 ## 2.1.2
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sindpad_design_system/sindpad_design_system.dart';
 
+import 'components_preview.dart';
+
 void main() {
   runApp(const SindpadPreviewApp());
 }
@@ -44,6 +46,10 @@ class _SindpadPreviewAppState extends State<SindpadPreviewApp> {
               onToggleTheme: _toggleTheme,
               isDarkMode: _themeMode == ThemeMode.dark,
             ),
+            ComponentsPreviewScreen(
+              onToggleTheme: _toggleTheme,
+              isDarkMode: _themeMode == ThemeMode.dark,
+            ),
           ],
         ),
         bottomNavigationBar: NavigationBar(
@@ -63,6 +69,11 @@ class _SindpadPreviewAppState extends State<SindpadPreviewApp> {
               icon: Icon(Icons.login_outlined),
               selectedIcon: Icon(Icons.login),
               label: 'Login Form',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.widgets_outlined),
+              selectedIcon: Icon(Icons.widgets),
+              label: 'Components',
             ),
           ],
         ),
@@ -622,7 +633,7 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
   }
 }
 
-enum _LoginDemoState { normal, loading, error }
+enum _LoginDemoState { normal, empty, loading, error }
 
 class LoginPreviewScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
@@ -647,14 +658,59 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
   bool _showSignUp = true;
 
   void _showNotification(String message) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-      ),
+    AppSnackBar.show(
+      context,
+      message: message,
+      type: AppSnackBarType.success,
+      duration: const Duration(seconds: 2),
     );
+  }
+
+  void _showFeedback(AppSnackBarType type) {
+    final messages = <AppSnackBarType, String>{
+      AppSnackBarType.success: _isArabic
+          ? 'تمت العملية بنجاح'
+          : 'Operation completed successfully',
+      AppSnackBarType.error: _isArabic
+          ? 'حدث خطأ غير متوقع'
+          : 'Something went wrong',
+      AppSnackBarType.warning: _isArabic
+          ? 'يرجى مراجعة هذه المعلومة'
+          : 'Please review this caution',
+      AppSnackBarType.info: _isArabic
+          ? 'هذه رسالة معلومات عامة'
+          : 'This is general information',
+      AppSnackBarType.loading: _isArabic
+          ? 'جاري تنفيذ العملية...'
+          : 'Operation in progress...',
+      AppSnackBarType.defaultMessage: _isArabic
+          ? 'رسالة محايدة'
+          : 'A neutral message',
+    };
+
+    AppSnackBar.show(context, message: messages[type]!, type: type);
+  }
+
+  String _feedbackLabel(AppSnackBarType type) {
+    if (_isArabic) {
+      return switch (type) {
+        AppSnackBarType.success => 'نجاح',
+        AppSnackBarType.error => 'خطأ',
+        AppSnackBarType.warning => 'تحذير',
+        AppSnackBarType.info => 'معلومات',
+        AppSnackBarType.loading => 'تحميل',
+        AppSnackBarType.defaultMessage => 'افتراضي',
+      };
+    }
+
+    return switch (type) {
+      AppSnackBarType.success => 'Success',
+      AppSnackBarType.error => 'Error',
+      AppSnackBarType.warning => 'Warning',
+      AppSnackBarType.info => 'Info',
+      AppSnackBarType.loading => 'Loading',
+      AppSnackBarType.defaultMessage => 'Default',
+    };
   }
 
   @override
@@ -748,6 +804,22 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
     required String? errorMessage,
   }) {
     switch (_demoState) {
+      case _LoginDemoState.empty:
+        return AppEmptyWidget(
+          title: _isArabic ? 'لا توجد بيانات' : 'No data yet',
+          message: _isArabic
+              ? 'ستظهر النتائج هنا عند توفرها.'
+              : 'Results will appear here when they are available.',
+          action: OutlinedButton.icon(
+            onPressed: () {
+              setState(() {
+                _demoState = _LoginDemoState.normal;
+              });
+            },
+            icon: const Icon(Icons.refresh, size: 18),
+            label: Text(_isArabic ? 'عرض النموذج' : 'Show form'),
+          ),
+        );
       case _LoginDemoState.loading:
         return AppWaitingWidget(
           message: _isArabic ? 'يرجى الانتظار...' : 'Please wait...',
@@ -820,6 +892,10 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
                 ButtonSegment(
                   value: _LoginDemoState.normal,
                   label: Text(_isArabic ? 'عادية' : 'Normal'),
+                ),
+                ButtonSegment(
+                  value: _LoginDemoState.empty,
+                  label: Text(_isArabic ? 'فارغة' : 'Empty'),
                 ),
                 ButtonSegment(
                   value: _LoginDemoState.loading,
@@ -896,6 +972,26 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
               label: Text(_isArabic ? 'إنشاء حساب' : 'Sign Up'),
               selected: _showSignUp,
               onSelected: (val) => setState(() => _showSignUp = val),
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Text(
+              _isArabic ? 'رسائل التنبيه:' : 'Feedback:',
+              style: typography.labelSmall.copyWith(
+                color: colors.textSecondary,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.xs),
+            for (final type in AppSnackBarType.values) ...[
+              OutlinedButton(
+                onPressed: () => _showFeedback(type),
+                child: Text(_feedbackLabel(type)),
+              ),
+              const SizedBox(width: AppSpacing.xs),
+            ],
+            OutlinedButton.icon(
+              onPressed: () => AppSnackBar.hide(context),
+              icon: const Icon(Icons.close, size: 16),
+              label: Text(_isArabic ? 'إخفاء' : 'Hide'),
             ),
           ],
         ),

@@ -203,6 +203,82 @@ Widget build(BuildContext context) {
 }
 ```
 
+### 4. Show feedback snackbars
+
+Use `AppSnackBarType` to keep feedback styling consistent across applications:
+
+```dart
+AppSnackBar.show(
+  context,
+  message: 'Profile saved successfully.',
+  type: AppSnackBarType.success,
+);
+
+AppSnackBar.show(
+  context,
+  message: 'Unable to connect. Try again.',
+  type: AppSnackBarType.error,
+  actionLabel: 'Retry',
+  onAction: reloadProfile,
+);
+
+AppSnackBar.show(
+  context,
+  message: 'Uploading document...',
+  type: AppSnackBarType.loading,
+);
+
+// Call this after the operation completes.
+AppSnackBar.hide(context);
+```
+
+Available types are `success`, `error`, `warning`, `info`, `loading`, and
+`defaultMessage`. Loading snackbars remain visible until explicitly hidden.
+
+### 5. Use loading components
+
+The package includes shared loading primitives and composed skeletons:
+
+```dart
+const CircularLoader();
+const LinearLoader(value: 0.65);
+const Skeleton(width: 240, height: 20);
+const ProductSkeleton();
+const ListSkeleton(itemCount: 5);
+const CardSkeleton();
+const PageLoader(message: 'Loading products...');
+```
+
+Use `AppLoader` for a compact indicator with an optional message. `Skeleton`
+is the base placeholder used by the product, list, and card compositions.
+
+### 6. Use buttons
+
+Use `AppButton` for consistent action styling across applications:
+
+```dart
+AppButton(
+  label: 'Save changes',
+  leadingIcon: Icons.check,
+  onPressed: saveChanges,
+)
+
+AppButton(
+  label: 'Delete',
+  variant: AppButtonVariant.danger,
+  onPressed: deleteItem,
+)
+
+AppButton(
+  label: 'Saving',
+  isLoading: isSaving,
+)
+```
+
+Available variants are `primary`, `secondary`, `outlined`, `tonal`, `text`,
+and `danger`. Use `AppIconButton` for icon-only actions and always provide its
+required `tooltip`.
+
 ---
 
 ## Running the Example Playground
