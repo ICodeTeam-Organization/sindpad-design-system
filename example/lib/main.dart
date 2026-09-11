@@ -18,8 +18,9 @@ class _SindpadPreviewAppState extends State<SindpadPreviewApp> {
 
   void _toggleTheme() {
     setState(() {
-      _themeMode =
-          _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+      _themeMode = _themeMode == ThemeMode.light
+          ? ThemeMode.dark
+          : ThemeMode.light;
     });
   }
 
@@ -81,7 +82,8 @@ class FoundationPreviewScreen extends StatefulWidget {
   });
 
   @override
-  State<FoundationPreviewScreen> createState() => _FoundationPreviewScreenState();
+  State<FoundationPreviewScreen> createState() =>
+      _FoundationPreviewScreenState();
 }
 
 class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
@@ -106,17 +108,13 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
             ),
             Text(
               'Foundation Preview',
-              style: typography.bodySmall.copyWith(
-                color: colors.textSecondary,
-              ),
+              style: typography.bodySmall.copyWith(color: colors.textSecondary),
             ),
           ],
         ),
         actions: [
           IconButton(
-            icon: Icon(
-              widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-            ),
+            icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
             tooltip: 'Toggle Theme',
             onPressed: widget.onToggleTheme,
           ),
@@ -128,25 +126,53 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
         children: [
           _buildIntroBanner(context),
           const SizedBox(height: AppSpacing.lg),
-          _buildSectionHeader(context, '1. Colors', 'Raw palettes and semantic tokens'),
+          _buildSectionHeader(
+            context,
+            '1. Colors',
+            'Raw palettes and semantic tokens',
+          ),
           _buildColorsPreview(context),
           const SizedBox(height: AppSpacing.lg),
-          _buildSectionHeader(context, '2. Typography', 'Type scale and font hierarchy'),
+          _buildSectionHeader(
+            context,
+            '2. Typography',
+            'Type scale and font hierarchy',
+          ),
           _buildTypographyPreview(context),
           const SizedBox(height: AppSpacing.lg),
-          _buildSectionHeader(context, '3. Spacing', 'Scale from xxs (2px) to xxxl (64px)'),
+          _buildSectionHeader(
+            context,
+            '3. Spacing',
+            'Scale from xxs (2px) to xxxl (64px)',
+          ),
           _buildSpacingPreview(context),
           const SizedBox(height: AppSpacing.lg),
-          _buildSectionHeader(context, '4. Radius', 'Border radius presets from none to full'),
+          _buildSectionHeader(
+            context,
+            '4. Radius',
+            'Border radius presets from none to full',
+          ),
           _buildRadiusPreview(context),
           const SizedBox(height: AppSpacing.lg),
-          _buildSectionHeader(context, '5. Shadows', 'Elevation tiers from none to lg'),
+          _buildSectionHeader(
+            context,
+            '5. Shadows',
+            'Elevation tiers from none to lg',
+          ),
           _buildShadowsPreview(context),
           const SizedBox(height: AppSpacing.lg),
-          _buildSectionHeader(context, '6. Dimensions', 'Icon sizing and touch target accessibility'),
+          _buildSectionHeader(
+            context,
+            '6. Dimensions',
+            'Icon sizing and touch target accessibility',
+          ),
           _buildDimensionsPreview(context),
           const SizedBox(height: AppSpacing.lg),
-          _buildSectionHeader(context, '7. Motion', 'Durations and animation curves'),
+          _buildSectionHeader(
+            context,
+            '7. Motion',
+            'Durations and animation curves',
+          ),
           _buildMotionPreview(context),
           const SizedBox(height: AppSpacing.xxl),
         ],
@@ -239,7 +265,8 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
     final typography = context.sindpadTypography;
     final radius = context.sindpadRadius;
 
-    final hex = '#${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase().substring(2)}';
+    final hex =
+        '#${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase().substring(2)}';
 
     return Container(
       width: 140,
@@ -315,7 +342,9 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
                   width: 120,
                   child: Text(
                     sample.$1,
-                    style: typography.caption.copyWith(color: colors.textSecondary),
+                    style: typography.caption.copyWith(
+                      color: colors.textSecondary,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -367,14 +396,18 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
                   width: 60,
                   child: Text(
                     s.$1,
-                    style: typography.labelMedium.copyWith(color: colors.textPrimary),
+                    style: typography.labelMedium.copyWith(
+                      color: colors.textPrimary,
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 50,
                   child: Text(
                     '${s.$2.toInt()}px',
-                    style: typography.caption.copyWith(color: colors.textSecondary),
+                    style: typography.caption.copyWith(
+                      color: colors.textSecondary,
+                    ),
                   ),
                 ),
                 Container(
@@ -426,7 +459,9 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
               alignment: Alignment.center,
               child: Text(
                 r.$1.split(' ')[0],
-                style: typography.labelSmall.copyWith(color: colors.textPrimary),
+                style: typography.labelSmall.copyWith(
+                  color: colors.textPrimary,
+                ),
               ),
             ),
             const SizedBox(height: AppSpacing.xxs),
@@ -557,7 +592,11 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
                 _motionExpanded = !_motionExpanded;
               });
             },
-            child: Text(_motionExpanded ? 'Reset Animation' : 'Trigger Motion (${motion.normalDuration.inMilliseconds}ms)'),
+            child: Text(
+              _motionExpanded
+                  ? 'Reset Animation'
+                  : 'Trigger Motion (${motion.normalDuration.inMilliseconds}ms)',
+            ),
           ),
           const SizedBox(height: AppSpacing.md),
           AnimatedContainer(
@@ -654,8 +693,8 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
 
     final errorMessage = _demoState == _LoginDemoState.error
         ? (_isArabic
-            ? 'اسم المستخدم أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.'
-            : 'Invalid credentials. Please verify your details and try again.')
+              ? 'اسم المستخدم أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.'
+              : 'Invalid credentials. Please verify your details and try again.')
         : null;
 
     return Directionality(
@@ -693,43 +732,63 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
           children: [
             _buildControlBar(context),
             Expanded(
-              child: AppLoginForm(
+              child: _buildLoginState(
                 config: config,
-                isLoading: _demoState == _LoginDemoState.loading,
                 errorMessage: errorMessage,
-                onLogin: (credentials) {
-                  _showNotification(
-                    _isArabic
-                        ? 'تم تسجيل الدخول: ${credentials.identifier}'
-                        : 'Login credentials submitted: ${credentials.identifier}',
-                  );
-                },
-                onForgotPassword: () {
-                  _showNotification(
-                    _isArabic
-                        ? 'انتقال إلى استعادة كلمة المرور (/forgot-password)'
-                        : 'Navigating to: /forgot-password',
-                  );
-                },
-                onSignUp: () {
-                  _showNotification(
-                    _isArabic
-                        ? 'انتقال إلى إنشاء حساب جديد (/signup)'
-                        : 'Navigating to: /signup',
-                  );
-                },
-                onGoogleLogin: () {
-                  _showNotification('Google Sign-In Triggered');
-                },
-                onFacebookLogin: () {
-                  _showNotification('Facebook Sign-In Triggered');
-                },
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildLoginState({
+    required AppLoginConfig config,
+    required String? errorMessage,
+  }) {
+    switch (_demoState) {
+      case _LoginDemoState.loading:
+        return AppWaitingWidget(
+          message: _isArabic ? 'يرجى الانتظار...' : 'Please wait...',
+        );
+      case _LoginDemoState.error:
+        return AppErrorWidget(
+          title: _isArabic ? 'حدث خطأ' : 'Something went wrong',
+          message: errorMessage ?? '',
+        );
+      case _LoginDemoState.normal:
+        return AppLoginForm(
+          config: config,
+          onLogin: (credentials) {
+            _showNotification(
+              _isArabic
+                  ? 'تم تسجيل الدخول: ${credentials.identifier}'
+                  : 'Login credentials submitted: ${credentials.identifier}',
+            );
+          },
+          onForgotPassword: () {
+            _showNotification(
+              _isArabic
+                  ? 'انتقال إلى استعادة كلمة المرور (/forgot-password)'
+                  : 'Navigating to: /forgot-password',
+            );
+          },
+          onSignUp: () {
+            _showNotification(
+              _isArabic
+                  ? 'انتقال إلى إنشاء حساب جديد (/signup)'
+                  : 'Navigating to: /signup',
+            );
+          },
+          onGoogleLogin: () {
+            _showNotification('Google Sign-In Triggered');
+          },
+          onFacebookLogin: () {
+            _showNotification('Facebook Sign-In Triggered');
+          },
+        );
+    }
   }
 
   Widget _buildControlBar(BuildContext context) {
@@ -743,9 +802,7 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
       ),
       decoration: BoxDecoration(
         color: colors.surfaceSubtle,
-        border: Border(
-          bottom: BorderSide(color: colors.borderSubtle),
-        ),
+        border: Border(bottom: BorderSide(color: colors.borderSubtle)),
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -753,7 +810,9 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
           children: [
             Text(
               _isArabic ? 'الحالة:' : 'State:',
-              style: typography.labelSmall.copyWith(color: colors.textSecondary),
+              style: typography.labelSmall.copyWith(
+                color: colors.textSecondary,
+              ),
             ),
             const SizedBox(width: AppSpacing.xs),
             SegmentedButton<_LoginDemoState>(
@@ -781,7 +840,9 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
             const SizedBox(width: AppSpacing.md),
             Text(
               _isArabic ? 'نوع المعرف:' : 'Credential:',
-              style: typography.labelSmall.copyWith(color: colors.textSecondary),
+              style: typography.labelSmall.copyWith(
+                color: colors.textSecondary,
+              ),
             ),
             const SizedBox(width: AppSpacing.xs),
             DropdownButton<LoginCredentialType>(

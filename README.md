@@ -141,7 +141,7 @@ Each Sindpad application creates its brand `ThemeConfig`:
 
 ```dart
 // Example: Customizing brand colors and radius for an app
-final customAppConfig = ThemeConfig.lightDefault(
+final customLightConfig = ThemeConfig.lightDefault(
   colors: const AppColors.fallback().copyWith(
     primary: const Color(0xFF0066CC),
     secondary: const Color(0xFFFF9900),
@@ -150,16 +150,27 @@ final customAppConfig = ThemeConfig.lightDefault(
   typography: AppTypography.regular(fontFamily: 'AppBrandFont'),
 );
 
+final customDarkConfig = ThemeConfig.darkDefault(
+  colors: const AppColors.darkDefault().copyWith(
+    primary: const Color(0xFF66B5FF),
+    secondary: const Color(0xFFFFB347),
+  ),
+  radius: const AppRadius.rounded(),
+  typography: AppTypography.regular(fontFamily: 'AppBrandFont'),
+);
+
 void main() {
   runApp(
     MaterialApp(
-      theme: AppTheme.light(customAppConfig),
-      darkTheme: AppTheme.dark(customAppConfig.copyWith(brightness: Brightness.dark)),
+      theme: AppTheme.light(customLightConfig),
+      darkTheme: AppTheme.dark(customDarkConfig),
       home: const HomeScreen(),
     ),
   );
 }
 ```
+
+For the standard package palette, use `AppTheme.light()` and `AppTheme.dark()` without passing a configuration. Both factories are exported from the package's public library entry point.
 
 ### 3. Access tokens in widgets
 

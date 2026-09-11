@@ -57,17 +57,31 @@ class AppColors {
   /// A neutral, brand-agnostic default palette suitable for initialization
   /// or fallback before an app provides its customized branding.
   const AppColors.fallback()
-      : primary = const Color(0xFFFF8527),
-        primaryContainer = const Color(0xFFFFF4EC),
-        secondary = const Color(0xFF093456),
-        secondaryContainer = const Color(0xFFEEF5FA),
-        accent = const Color(0xFFF59E0B),
-        neutral = const Color(0xFF94A3B8),
-        neutralLightest = const Color(0xFFFFFFFF),
-        neutralLighter = const Color(0xFFF1F5F9),
-        neutralMid = const Color(0xFFCBD5E1),
-        neutralDark = const Color(0xFF334155),
-        neutralDarkest = const Color(0xFF0F172A);
+    : primary = const Color(0xFFFF8527),
+      primaryContainer = const Color(0xFFFFF4EC),
+      secondary = const Color(0xFF093456),
+      secondaryContainer = const Color(0xFFEEF5FA),
+      accent = const Color(0xFFF59E0B),
+      neutral = const Color(0xFF94A3B8),
+      neutralLightest = const Color(0xFFFFFFFF),
+      neutralLighter = const Color(0xFFF1F5F9),
+      neutralMid = const Color(0xFFCBD5E1),
+      neutralDark = const Color(0xFF334155),
+      neutralDarkest = const Color(0xFF0F172A);
+
+  /// A brand-agnostic palette with containers and neutrals suited to dark mode.
+  const AppColors.darkDefault()
+    : primary = const Color(0xFFFF9A4D),
+      primaryContainer = const Color(0xFF6B2F0B),
+      secondary = const Color(0xFF7DB8E8),
+      secondaryContainer = const Color(0xFF123B5A),
+      accent = const Color(0xFFFBBF24),
+      neutral = const Color(0xFF94A3B8),
+      neutralLightest = const Color(0xFFF8FAFC),
+      neutralLighter = const Color(0xFF334155),
+      neutralMid = const Color(0xFF64748B),
+      neutralDark = const Color(0xFFCBD5E1),
+      neutralDarkest = const Color(0xFFF8FAFC);
 
   /// Creates a copy of this [AppColors] with the given fields replaced.
   AppColors copyWith({
@@ -104,7 +118,11 @@ class AppColors {
       primary: Color.lerp(a.primary, b.primary, t)!,
       primaryContainer: Color.lerp(a.primaryContainer, b.primaryContainer, t)!,
       secondary: Color.lerp(a.secondary, b.secondary, t)!,
-      secondaryContainer: Color.lerp(a.secondaryContainer, b.secondaryContainer, t)!,
+      secondaryContainer: Color.lerp(
+        a.secondaryContainer,
+        b.secondaryContainer,
+        t,
+      )!,
       accent: Color.lerp(a.accent, b.accent, t)!,
       neutral: Color.lerp(a.neutral, b.neutral, t)!,
       neutralLightest: Color.lerp(a.neutralLightest, b.neutralLightest, t)!,
@@ -134,16 +152,16 @@ class AppColors {
 
   @override
   int get hashCode => Object.hash(
-        primary,
-        primaryContainer,
-        secondary,
-        secondaryContainer,
-        accent,
-        neutral,
-        neutralLightest,
-        neutralLighter,
-        neutralMid,
-        neutralDark,
-        neutralDarkest,
-      );
+    primary,
+    primaryContainer,
+    secondary,
+    secondaryContainer,
+    accent,
+    neutral,
+    neutralLightest,
+    neutralLighter,
+    neutralMid,
+    neutralDark,
+    neutralDarkest,
+  );
 }

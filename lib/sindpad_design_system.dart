@@ -25,6 +25,8 @@ export 'components/auth/login/app_login_form.dart';
 export 'components/auth/login/app_login_models.dart';
 
 // Feedback Components
+export 'components/feedback/app_error_widget.dart';
+export 'components/feedback/app_waiting_widget.dart';
 export 'components/feedback/sign_in_snack_bar.dart';
 
 // Third-party Icons

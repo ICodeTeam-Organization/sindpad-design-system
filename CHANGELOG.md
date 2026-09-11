@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+* Added a dark-specific default raw color palette with dark-friendly brand containers and neutrals.
+* Added dark-aware Material component themes for inputs, buttons, navigation, dialogs, and bottom sheets.
+* Documented package-level light and dark theme configuration for consuming applications.
+
 ## 2.1.2
 
 * Added reusable `SignInSnackBar` feedback component with local and global display helpers.

@@ -31,7 +31,9 @@ class AppTheme {
     final isDark = config.brightness == Brightness.dark;
     final semantic = config.semanticColors;
     final brand = config.colors;
-    final textTheme = config.typography.toTextTheme(color: semantic.textPrimary);
+    final textTheme = config.typography.toTextTheme(
+      color: semantic.textPrimary,
+    );
 
     final colorScheme = ColorScheme(
       brightness: config.brightness,
@@ -66,9 +68,7 @@ class AppTheme {
       cardColor: semantic.surface,
       dividerColor: semantic.divider,
       textTheme: textTheme,
-      extensions: [
-        SindpadThemeExtension.fromConfig(config),
-      ],
+      extensions: [SindpadThemeExtension.fromConfig(config)],
       appBarTheme: AppBarTheme(
         backgroundColor: semantic.surface,
         foregroundColor: semantic.textPrimary,
@@ -86,6 +86,72 @@ class AppTheme {
           borderRadius: config.radius.mdBorderRadius,
           side: BorderSide(color: semantic.borderSubtle),
         ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: semantic.surface,
+        hintStyle: TextStyle(color: semantic.textSecondary),
+        labelStyle: TextStyle(color: semantic.textSecondary),
+        errorStyle: TextStyle(color: semantic.error),
+        border: OutlineInputBorder(
+          borderRadius: config.radius.mdBorderRadius,
+          borderSide: BorderSide(color: semantic.border),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: config.radius.mdBorderRadius,
+          borderSide: BorderSide(color: semantic.border),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: config.radius.mdBorderRadius,
+          borderSide: BorderSide(color: brand.primary, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: config.radius.mdBorderRadius,
+          borderSide: BorderSide(color: semantic.error),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: config.radius.mdBorderRadius,
+          borderSide: BorderSide(color: semantic.error, width: 2),
+        ),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          foregroundColor: semantic.textInverse,
+          backgroundColor: brand.primary,
+          disabledForegroundColor: semantic.textDisabled,
+          disabledBackgroundColor: semantic.disabledSurface,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: brand.primary,
+          side: BorderSide(color: semantic.border),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(foregroundColor: brand.primary),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: semantic.surface,
+        indicatorColor: brand.primaryContainer,
+        surfaceTintColor: Colors.transparent,
+        labelTextStyle: WidgetStatePropertyAll(
+          TextStyle(color: semantic.textSecondary),
+        ),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: semantic.surface,
+        surfaceTintColor: Colors.transparent,
+        titleTextStyle: config.typography.titleLarge.copyWith(
+          color: semantic.textPrimary,
+        ),
+        contentTextStyle: config.typography.bodyMedium.copyWith(
+          color: semantic.textSecondary,
+        ),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: semantic.surface,
+        surfaceTintColor: Colors.transparent,
       ),
       dividerTheme: DividerThemeData(
         color: semantic.divider,

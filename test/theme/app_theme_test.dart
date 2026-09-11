@@ -4,18 +4,21 @@ import 'package:sindpad_design_system/sindpad_design_system.dart';
 
 void main() {
   group('AppTheme', () {
-    test('AppTheme.light creates valid ThemeData with SindpadThemeExtension', () {
-      final theme = AppTheme.light();
+    test(
+      'AppTheme.light creates valid ThemeData with SindpadThemeExtension',
+      () {
+        final theme = AppTheme.light();
 
-      expect(theme.brightness, Brightness.light);
-      expect(theme.useMaterial3, isTrue);
+        expect(theme.brightness, Brightness.light);
+        expect(theme.useMaterial3, isTrue);
 
-      final ext = theme.extension<SindpadThemeExtension>();
-      expect(ext, isNotNull);
-      expect(ext!.spacing.sMd, AppSpacing.md);
-      expect(ext.radius.rMd, AppRadius.md);
-      expect(ext.semanticColors.surface, const Color(0xFFFFFFFF));
-    });
+        final ext = theme.extension<SindpadThemeExtension>();
+        expect(ext, isNotNull);
+        expect(ext!.spacing.sMd, AppSpacing.md);
+        expect(ext.radius.rMd, AppRadius.md);
+        expect(ext.semanticColors.surface, const Color(0xFFFFFFFF));
+      },
+    );
 
     test('AppTheme.dark creates valid ThemeData with dark semantic colors', () {
       final theme = AppTheme.dark();
@@ -26,6 +29,10 @@ void main() {
       final ext = theme.extension<SindpadThemeExtension>();
       expect(ext, isNotNull);
       expect(ext!.semanticColors.background, const Color(0xFF111827));
+      expect(theme.colorScheme.primaryContainer, const Color(0xFF6B2F0B));
+      expect(theme.scaffoldBackgroundColor, const Color(0xFF111827));
+      expect(theme.inputDecorationTheme.fillColor, const Color(0xFF1F2937));
+      expect(theme.navigationBarTheme.backgroundColor, const Color(0xFF1F2937));
     });
 
     testWidgets('context extensions retrieve tokens properly', (tester) async {
@@ -47,7 +54,10 @@ void main() {
       expect(capturedContext.sindpadRadius.rMd, AppRadius.md);
       expect(capturedContext.sindpadColors.surface, const Color(0xFFFFFFFF));
       expect(capturedContext.sindpadDimensions.touchTargetMin, 48.0);
-      expect(capturedContext.sindpadMotion.normalDuration, const Duration(milliseconds: 300));
+      expect(
+        capturedContext.sindpadMotion.normalDuration,
+        const Duration(milliseconds: 300),
+      );
     });
   });
 }

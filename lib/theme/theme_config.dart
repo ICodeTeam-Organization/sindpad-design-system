@@ -96,7 +96,7 @@ class ThemeConfig {
     AppDimensions? dimensions,
     AppMotion? motion,
   }) {
-    final effectiveColors = colors ?? const AppColors.fallback();
+    final effectiveColors = colors ?? const AppColors.darkDefault();
     return ThemeConfig(
       brightness: Brightness.dark,
       colors: effectiveColors,
@@ -152,14 +152,14 @@ class ThemeConfig {
 
   @override
   int get hashCode => Object.hash(
-        brightness,
-        colors,
-        semanticColors,
-        typography,
-        spacing,
-        radius,
-        shadows,
-        dimensions,
-        motion,
-      );
+    brightness,
+    colors,
+    semanticColors,
+    typography,
+    spacing,
+    radius,
+    shadows,
+    dimensions,
+    motion,
+  );
 }
