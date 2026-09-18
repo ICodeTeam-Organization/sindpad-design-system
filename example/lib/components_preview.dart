@@ -211,6 +211,260 @@ class ComponentsPreviewScreen extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: AppSpacing.lg),
+          _ComponentSection(
+            title: 'App Bar (SindbadAppBar)',
+            description:
+                'Standardized application bar supporting title/subtitle hierarchy, custom actions, bottom widgets, and dividers.',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Variant 1: Title & Subtitle with Actions
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: SindbadAppBar(
+                    title: 'متجر سندباد',
+                    subtitle: 'فرع الرياض - النرجس',
+                    showBottomDivider: true,
+                    automaticallyImplyLeading: false,
+                    leading: const Icon(Icons.storefront_outlined),
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.notifications_none_outlined),
+                        onPressed: () => AppSnackBar.show(
+                          context,
+                          message: 'فتح الإشعارات',
+                          type: AppSnackBarType.info,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+
+                // Variant 2: Centered Title with Back & Share
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: SindbadAppBar(
+                    title: 'تفاصيل الطلب #1084',
+                    centerTitle: true,
+                    automaticallyImplyLeading: false,
+                    leading: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 18,
+                    ),
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.share_outlined),
+                        onPressed: () => AppSnackBar.show(
+                          context,
+                          message: 'مشاركة الطلب',
+                          type: AppSnackBarType.success,
+                        ),
+                      ),
+                    ],
+                    showBottomDivider: true,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+
+                // Variant 3: With Search Bottom Widget
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: SindbadAppBar(
+                    title: 'قائمة المنتجات',
+                    subtitle: '124 منتج متوفر',
+                    showBottomDivider: true,
+                    automaticallyImplyLeading: false,
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.tune_outlined),
+                        onPressed: () => AppSnackBar.show(
+                          context,
+                          message: 'تصفية المنتجات',
+                          type: AppSnackBarType.info,
+                        ),
+                      ),
+                    ],
+                    bottom: PreferredSize(
+                      preferredSize: const Size.fromHeight(48),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        child: Container(
+                          height: 34,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? const Color(0xFF282834)
+                                : const Color(0xFFF3F4F6),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Row(
+                            children: [
+                              Icon(Icons.search, size: 18, color: Colors.grey),
+                              SizedBox(width: 8),
+                              Text(
+                                'ابحث بالاسم أو الباركود...',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          _ComponentSection(
+            title: 'Home & Store App Bar (SindbadHomeAppBar)',
+            description:
+                'E-commerce header featuring stylized drawer icon, store title, notification badge, and animated search field with rotating hints.',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Variant 1: Normal App Bar (Drawer + Title + Notification + Actions)
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: SindbadHomeAppBar(
+                    title: 'متجر سندباد (Normal App Bar)',
+                    notificationCount: 3,
+                    showBottomDivider: true,
+                    onDrawerTap: () => Scaffold.of(context).openDrawer(),
+                    onNotificationTap: () => AppSnackBar.show(
+                      context,
+                      message: 'لديك 3 إشعارات غير مقروءة',
+                      type: AppSnackBarType.info,
+                    ),
+                    // actions: [
+                    //   IconButton(
+                    //     icon: const Icon(Icons.favorite_border_rounded),
+                    //     tooltip: 'المفضلة',
+                    //     onPressed: () => AppSnackBar.show(
+                    //       context,
+                    //       message: 'المفضلة',
+                    //       type: AppSnackBarType.info,
+                    //     ),
+                    //   ),
+                    // ],
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+
+                // Variant 2: Full Home Header with Title & Animated Bottom Search Bar
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: SindbadHomeAppBar.withSearch(
+                    title: 'متجر سندباد (with Search)',
+                    notificationCount: 4,
+                    showBottomDivider: true,
+                    onDrawerTap: () => Scaffold.of(context).openDrawer(),
+                    onNotificationTap: () => AppSnackBar.show(
+                      context,
+                      message: 'لديك 4 إشعارات غير مقروءة',
+                      type: AppSnackBarType.info,
+                    ),
+                    searchHints: const [
+                      'ابحث عن منتجات الجملة...',
+                      'ابحث عن عروض وخصومات اليوم...',
+                      'ابحث بالاسم أو الباركود...',
+                    ],
+                    onSearch: (query) => AppSnackBar.show(
+                      context,
+                      message: 'بحث: $query',
+                      type: AppSnackBarType.success,
+                    ),
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.favorite_border_rounded),
+                        tooltip: 'المفضلة',
+                        onPressed: () => AppSnackBar.show(
+                          context,
+                          message: 'المفضلة',
+                          type: AppSnackBarType.info,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+
+                // Variant 3: Compact Inline Search Header
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: SindbadHomeAppBar.withSearch(
+                    searchInBottomRow: false,
+                    notificationCount: 12,
+                    showBottomDivider: true,
+                    onDrawerTap: () => Scaffold.of(context).openDrawer(),
+                    onNotificationTap: () => AppSnackBar.show(
+                      context,
+                      message: 'لديك إشعارات كثيرة (9+)',
+                      type: AppSnackBarType.info,
+                    ),
+                    searchHint: 'بحث سريع...',
+                    onSearch: (query) => AppSnackBar.show(
+                      context,
+                      message: 'بحث: $query',
+                      type: AppSnackBarType.success,
+                    ),
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: CircleAvatar(
+                          radius: 13,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primaryContainer,
+                          child: const Text(
+                            'SA',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
           _ComponentSection(
             title: 'Navigation & Drawers',
             description:

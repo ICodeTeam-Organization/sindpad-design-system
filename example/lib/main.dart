@@ -99,22 +99,158 @@ class FoundationPreviewScreen extends StatefulWidget {
 
 class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
   bool _motionExpanded = false;
+  bool _showSearchBar = false;
 
   @override
   Widget build(BuildContext context) {
+    final PreferredSizeWidget appBar = _showSearchBar
+        ? SindbadHomeAppBar.withSearch(
+            title: 'متجر سندباد',
+            notificationCount: 3,
+            showBottomDivider: true,
+            onDrawerTap: () => Scaffold.of(context).openDrawer(),
+            onNotificationTap: () {
+              SindbadAboutAppModal.show(
+                context: context,
+                appName: 'متجر سندباد',
+                appSubtitle: 'نظام إدارة التجارة الذكي',
+                version: '2.3.0',
+                systemInfo: 'Flutter 3.29 • Android',
+                companyName: 'مجموعة سندباد للتقنية',
+                copyright: '© 2026 جميع الحقوق محفوظة',
+              );
+            },
+            searchHints: const [
+              'ابحث عن ألوان وهوية سندباد...',
+              'ابحث عن الخطوط والأبعاد...',
+              'ابحث عن المنتجات والعروض...',
+              'ابحث بالاسم أو الباركود...',
+            ],
+            onSearch: (query) => AppSnackBar.show(
+              context,
+              message: 'جاري البحث عن: $query',
+              type: AppSnackBarType.info,
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search_off),
+                tooltip: 'إخفاء شريط البحث (الوضع العادي)',
+                onPressed: () {
+                  setState(() {
+                    _showSearchBar = false;
+                  });
+                },
+              ),
+              IconButton(
+                icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+                tooltip: 'Toggle Theme',
+                onPressed: widget.onToggleTheme,
+              ),
+              const SizedBox(width: AppSpacing.xs),
+            ],
+          )
+        : SindbadHomeAppBar.normal(
+            title: 'متجر سندباد',
+            notificationCount: 3,
+            showBottomDivider: true,
+            onDrawerTap: () => Scaffold.of(context).openDrawer(),
+            onNotificationTap: () {
+              SindbadAboutAppModal.show(
+                context: context,
+                appName: 'متجر سندباد',
+                appSubtitle: 'نظام إدارة التجارة الذكي',
+                version: '2.3.0',
+                systemInfo: 'Flutter 3.29 • Android',
+                companyName: 'مجموعة سندباد للتقنية',
+                copyright: '© 2026 جميع الحقوق محفوظة',
+              );
+            },
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search),
+                tooltip: 'تفعيل شريط البحث',
+                onPressed: () {
+                  setState(() {
+                    _showSearchBar = true;
+                  });
+                },
+              ),
+              IconButton(
+                icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+                tooltip: 'Toggle Theme',
+                onPressed: widget.onToggleTheme,
+              ),
+              const SizedBox(width: AppSpacing.xs),
+            ],
+          );
+
     return Scaffold(
-      appBar: SindbadAppBar(
-        title: 'Sindpad Design System',
-        subtitle: 'Foundation Preview',
-        showBottomDivider: true,
-        actions: [
-          IconButton(
-            icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
-            tooltip: 'Toggle Theme',
-            onPressed: widget.onToggleTheme,
+      appBar: appBar,
+      drawer: SindbadDrawer(
+        userName: 'أحمد المحمود',
+        subtitle: 'مدير المتجر • فرع النرجس',
+        info: const [
+          SindbadDrawerInfo(
+            label: 'رقم الهاتف',
+            value: '+966 55 123 4567',
+            icon: Icons.phone_android,
           ),
-          const SizedBox(width: AppSpacing.sm),
+          SindbadDrawerInfo(
+            label: 'البريد',
+            value: 'ahmed@sindbad.com',
+            icon: Icons.email_outlined,
+          ),
+          SindbadDrawerInfo(
+            label: 'الفرع',
+            value: 'الرياض - النرجس',
+            icon: Icons.store_mall_directory_outlined,
+          ),
         ],
+        actions: [
+          SindbadDrawerAction(
+            title: 'لوحة التحكم والتقارير',
+            icon: Icons.dashboard_outlined,
+            onTap: () => AppSnackBar.show(
+              context,
+              message: 'تم اختيار لوحة التحكم',
+              type: AppSnackBarType.info,
+            ),
+          ),
+          SindbadDrawerAction(
+            title: 'إدارة المخزون والمنتجات',
+            icon: Icons.inventory_2_outlined,
+            onTap: () => AppSnackBar.show(
+              context,
+              message: 'تم اختيار إدارة المنتجات',
+              type: AppSnackBarType.info,
+            ),
+          ),
+          SindbadDrawerAction(
+            title: 'حول التطبيق',
+            icon: Icons.info_outline,
+            onTap: () {
+              Navigator.pop(context);
+              SindbadAboutAppModal.show(
+                context: context,
+                appName: 'متجر سندباد',
+                appSubtitle: 'نظام إدارة المبيعات والتوزيع',
+                version: '2.3.0',
+                systemInfo: 'Flutter 3.29 • Android',
+                companyName: 'مجموعة سندباد للحلول الرقمية',
+                copyright: '© 2026 جميع الحقوق محفوظة لشركة سندباد',
+              );
+            },
+          ),
+        ],
+        version: '2.3.0',
+        versionFooterText: 'سندباد',
+        isDarkMode: widget.isDarkMode,
+        onThemeChanged: (_) => widget.onToggleTheme(),
+        onVersionTap: () => AppSnackBar.show(
+          context,
+          message: 'Sindbad Design System v2.3.0 (Verified)',
+          type: AppSnackBarType.success,
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),

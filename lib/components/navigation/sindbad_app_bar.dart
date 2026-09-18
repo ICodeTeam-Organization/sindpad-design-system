@@ -133,20 +133,23 @@ class SindbadAppBar extends StatelessWidget implements PreferredSizeWidget {
     // Resolve bottom widget with divider if enabled
     final PreferredSizeWidget? resolvedBottom = _buildBottom(resolvedDividerColor);
 
-    return AppBar(
-      title: resolvedTitle,
-      leading: leading,
-      automaticallyImplyLeading: automaticallyImplyLeading,
-      actions: actions,
-      bottom: resolvedBottom,
-      centerTitle: isCentered,
-      backgroundColor: bg,
-      foregroundColor: fg,
-      elevation: elevation,
-      scrolledUnderElevation: scrolledUnderElevation,
-      toolbarHeight: toolbarHeight,
-      systemOverlayStyle: systemOverlayStyle,
-      shape: shape,
+    return SizedBox(
+      height: preferredSize.height,
+      child: AppBar(
+        title: resolvedTitle,
+        leading: leading,
+        automaticallyImplyLeading: automaticallyImplyLeading,
+        actions: actions,
+        bottom: resolvedBottom,
+        centerTitle: isCentered,
+        backgroundColor: bg,
+        foregroundColor: fg,
+        elevation: elevation,
+        scrolledUnderElevation: scrolledUnderElevation,
+        toolbarHeight: toolbarHeight,
+        systemOverlayStyle: systemOverlayStyle,
+        shape: shape,
+      ),
     );
   }
 

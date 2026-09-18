@@ -80,7 +80,7 @@ class LinearLoader extends StatelessWidget {
         value: value,
         minHeight: minHeight,
         color: color ?? theme.colorScheme.primary,
-        backgroundColor: backgroundColor ?? theme.colorScheme.surfaceVariant,
+        backgroundColor: backgroundColor ?? theme.colorScheme.surfaceContainerHighest,
       ),
     );
   }
@@ -121,7 +121,7 @@ class _SkeletonState extends State<Skeleton>
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final baseColor = colors.surfaceVariant;
+    final baseColor = colors.surfaceContainerHighest;
     final highlightColor = Color.lerp(
       baseColor,
       colors.onSurface.withValues(alpha: 0.08),
@@ -139,9 +139,10 @@ class _SkeletonState extends State<Skeleton>
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(widget.borderRadius),
             gradient: LinearGradient(
-              begin: Alignment(position, 0),
-              end: Alignment(position + 1, 0),
+              begin: Alignment(position - 1.0, 0),
+              end: Alignment(position + 1.0, 0),
               colors: [baseColor, highlightColor, baseColor],
+              stops: const [0.0, 0.5, 1.0],
             ),
           ),
         );
@@ -205,8 +206,8 @@ class ListSkeleton extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: itemCount,
-      separatorBuilder: (_, __) => SizedBox(height: spacing),
-      itemBuilder: (_, __) => const CardSkeleton(),
+      separatorBuilder: (_, _) => SizedBox(height: spacing),
+      itemBuilder: (_, _) => const CardSkeleton(),
     );
   }
 }

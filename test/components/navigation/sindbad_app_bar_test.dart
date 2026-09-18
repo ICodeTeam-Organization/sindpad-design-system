@@ -149,5 +149,40 @@ void main() {
       final Text titleText = tester.widget<Text>(titleFinder);
       expect(titleText.style?.color, isNotNull);
     });
+
+    testWidgets(
+      'renders cleanly inside unbounded parent such as ListView or Column without flex overflow',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: AppTheme.light(),
+            home: Scaffold(
+              body: ListView(
+                children: const [
+                  SindbadAppBar(
+                    title: 'Title in ListView',
+                    subtitle: 'Subtitle in ListView',
+                    showBottomDivider: true,
+                  ),
+                  SindbadAppBar(
+                    title: 'Title with Bottom',
+                    showBottomDivider: true,
+                    bottom: PreferredSize(
+                      preferredSize: Size.fromHeight(40.0),
+                      child: SizedBox(height: 40.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+
+        expect(tester.takeException(), isNull);
+        expect(find.text('Title in ListView'), findsOneWidget);
+        expect(find.text('Subtitle in ListView'), findsOneWidget);
+        expect(find.text('Title with Bottom'), findsOneWidget);
+      },
+    );
   });
 }

@@ -37,12 +37,14 @@ export 'components/feedback/app_snack_bar.dart';
 export 'components/feedback/app_waiting_widget.dart';
 export 'components/feedback/sign_in_snack_bar.dart';
 
-// Third-party Icons
+// Icons
+export 'icons/sindbad_menu_icon.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Navigation Components
 export 'components/navigation/sindbad_app_bar.dart';
 export 'components/navigation/sindbad_drawer.dart';
+export 'components/navigation/sindbad_home_app_bar.dart';
 
 // Modal Components
 export 'components/modals/sindbad_about_app_modal.dart';
