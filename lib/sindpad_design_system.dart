@@ -39,3 +39,10 @@ export 'components/feedback/sign_in_snack_bar.dart';
 
 // Third-party Icons
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+// Navigation Components
+export 'components/navigation/sindbad_app_bar.dart';
+export 'components/navigation/sindbad_drawer.dart';
+
+// Modal Components
+export 'components/modals/sindbad_about_app_modal.dart';

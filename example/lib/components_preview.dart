@@ -13,27 +13,11 @@ class ComponentsPreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.sindpadColors;
-    final typography = context.sindpadTypography;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Components',
-              style: typography.titleLarge.copyWith(
-                fontWeight: FontWeight.bold,
-                color: colors.textPrimary,
-              ),
-            ),
-            Text(
-              'Reusable component preview',
-              style: typography.bodySmall.copyWith(color: colors.textSecondary),
-            ),
-          ],
-        ),
+      appBar: SindbadAppBar(
+        title: 'Components',
+        subtitle: 'Reusable component preview',
+        showBottomDivider: true,
         actions: [
           IconButton(
             icon: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
@@ -227,9 +211,119 @@ class ComponentsPreviewScreen extends StatelessWidget {
               ),
             ),
           ),
+          _ComponentSection(
+            title: 'Navigation & Drawers',
+            description:
+                'Interactive drawer with account info, customizable quick actions, theme toggle, and language selector.',
+            child: Builder(
+              builder: (ctx) => Wrap(
+                spacing: AppSpacing.sm,
+                children: [
+                  FilledButton.icon(
+                    onPressed: () => Scaffold.of(ctx).openDrawer(),
+                    icon: const Icon(Icons.menu),
+                    label: const Text('Open SindbadDrawer'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          _ComponentSection(
+            title: 'About App Modal',
+            description:
+                'Theme-adaptive bottom sheet displaying app metadata, version diagnostics, and organization attribution.',
+            child: Wrap(
+              spacing: AppSpacing.sm,
+              children: [
+                FilledButton.tonalIcon(
+                  onPressed: () {
+                    SindbadAboutAppModal.show(
+                      context: context,
+                      appName: 'متجر سندباد',
+                      appSubtitle: 'نظام إدارة المبيعات والتوزيع',
+                      version: '2.3.0 (build 118)',
+                      systemInfo: 'Flutter 3.29 • Android 14',
+                      companyName: 'مجموعة سندباد للحلول الرقمية',
+                      copyright: '© 2026 جميع الحقوق محفوظة لشركة سندباد',
+                      closeButtonText: 'إغلاق',
+                    );
+                  },
+                  icon: const Icon(Icons.info_outline),
+                  label: const Text('Show About App Modal'),
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: AppSpacing.lg),
           const SizedBox(height: AppSpacing.xxl),
         ],
+      ),
+      drawer: SindbadDrawer(
+        userName: 'أحمد المحمود',
+        subtitle: 'مدير المتجر • فرع النرجس',
+        info: const [
+          SindbadDrawerInfo(
+            label: 'رقم الهاتف',
+            value: '+966 55 123 4567',
+            icon: Icons.phone_android,
+          ),
+          SindbadDrawerInfo(
+            label: 'البريد',
+            value: 'ahmed@sindbad.com',
+            icon: Icons.email_outlined,
+          ),
+          SindbadDrawerInfo(
+            label: 'الفرع',
+            value: 'الرياض - النرجس',
+            icon: Icons.store_mall_directory_outlined,
+          ),
+        ],
+        actions: [
+          SindbadDrawerAction(
+            title: 'لوحة التحكم والتقارير',
+            icon: Icons.dashboard_outlined,
+            onTap: () => AppSnackBar.show(
+              context,
+              message: 'تم اختيار لوحة التحكم',
+              type: AppSnackBarType.info,
+            ),
+          ),
+          SindbadDrawerAction(
+            title: 'إدارة المخزون والمنتجات',
+            icon: Icons.inventory_2_outlined,
+            onTap: () => AppSnackBar.show(
+              context,
+              message: 'تم اختيار إدارة المنتجات',
+              type: AppSnackBarType.info,
+            ),
+          ),
+          SindbadDrawerAction(
+            title: 'حول التطبيق',
+            icon: Icons.info_outline,
+            onTap: () {
+              Navigator.pop(context);
+              SindbadAboutAppModal.show(
+                context: context,
+                appName: 'متجر سندباد',
+                appSubtitle: 'نظام إدارة المبيعات والتوزيع',
+                version: '2.3.0 (build 118)',
+                systemInfo: 'Flutter 3.29 • Android 14',
+                companyName: 'مجموعة سندباد للحلول الرقمية',
+                copyright: '© 2026 جميع الحقوق محفوظة لشركة سندباد',
+              );
+            },
+          ),
+        ],
+        version: '2.3.0',
+        versionFooterText: 'سندباد',
+        isDarkMode: isDarkMode,
+        onThemeChanged: (_) => onToggleTheme(),
+        onVersionTap: () => AppSnackBar.show(
+          context,
+          message: 'Sindbad Design System v2.3.0 (Verified)',
+          type: AppSnackBarType.success,
+        ),
       ),
     );
   }

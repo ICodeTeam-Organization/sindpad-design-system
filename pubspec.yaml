@@ -1,6 +1,6 @@
 name: sindpad_design_system
 description: "Shared Flutter design system for Sindpad applications."
-version: 2.2.0
+version: 2.3.0
 repository: https://github.com/ICodeTeam-Organization/sindpad-design-system.git
 
 environment:

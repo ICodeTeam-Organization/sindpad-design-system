@@ -102,27 +102,11 @@ class _FoundationPreviewScreenState extends State<FoundationPreviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.sindpadColors;
-    final typography = context.sindpadTypography;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Sindpad Design System',
-              style: typography.titleLarge.copyWith(
-                fontWeight: FontWeight.bold,
-                color: colors.textPrimary,
-              ),
-            ),
-            Text(
-              'Foundation Preview',
-              style: typography.bodySmall.copyWith(color: colors.textSecondary),
-            ),
-          ],
-        ),
+      appBar: SindbadAppBar(
+        title: 'Sindpad Design System',
+        subtitle: 'Foundation Preview',
+        showBottomDivider: true,
         actions: [
           IconButton(
             icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
@@ -756,14 +740,9 @@ class _LoginPreviewScreenState extends State<LoginPreviewScreen> {
     return Directionality(
       textDirection: _isArabic ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            _isArabic ? 'معاينة شاشة الدخول' : 'Login Form Preview',
-            style: typography.titleMedium.copyWith(
-              fontWeight: FontWeight.bold,
-              color: colors.textPrimary,
-            ),
-          ),
+        appBar: SindbadAppBar(
+          title: _isArabic ? 'معاينة شاشة الدخول' : 'Login Form Preview',
+          showBottomDivider: true,
           actions: [
             TextButton.icon(
               onPressed: () {
